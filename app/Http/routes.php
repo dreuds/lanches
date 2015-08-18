@@ -19,6 +19,10 @@ $app->get('/', function() use ($app) {
 $app->get('produto', [
     'as' => 'produto.index', 'uses' => 'ProdutoController@index'
 ]);
+
+$app->get('produto/all', [
+    'as' => 'produto.all', 'uses' => 'ProdutoController@all'
+]);
 $app->get('produto/create', [
     'as' => 'produto.create', 'uses' => 'ProdutoController@create'
 ]);

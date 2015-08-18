@@ -1,4 +1,4 @@
-<form>
+ <form ng-controller="ProdutoController as ctrl">
     <fieldset>
         <legend>Produtos</legend>
         <div class="form-group">
@@ -27,8 +27,8 @@
         <th>Ações</th>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
+        <tr ng-repeat="produto as ctrl.produtos">
+            <td>{{produto.nome}}</td>
             <td>1</td>
             <td>1</td>
             <td>1</td>

@@ -38,13 +38,44 @@
             </nav>
             <div ng-view></div>
             <script>
-                angular.module('meulanche',['ngRoute']).config(['$routeProvider', function ($routeProvider){
+                var app = angular.module('meulanche',['ngRoute']);
+                    app.config(['$routeProvider', function ($routeProvider){
                         $routeProvider
                         .when('/pedidos', {templateUrl: 'views/produto/pedidos.html'})
                         .when('/clientes', {templateUrl: 'views/produto/clientes.html'})
                         .when('/produtos', {templateUrl: 'views/produto/produtos.html'})
                         .otherwise({redirectTo: '/'});
                 }]);
+
+                    app.controller('ProdutoController', ['$scope', '$http', function ($scope, $http) {
+
+                        $scope.produto = {};
+                        $scope.getProdutos = function(){
+                            $http.get('produto/all').
+                                success(function(data, status, headers, config) {
+                                    $scope.produtos = data;
+                                });
+                        };
+
+                        $scope.getProdutos();
+                        console.log($scope.produto);
+                        $scope.save = function() {
+                                    $http({
+                                       method  : 'POST',
+                                       url     : 'produto/store',
+                                       data    : $scope.produto,  // pass in data as strings
+                                       headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+                                    }).
+                                    success(function(response){
+                                        console.log(response);
+                                       location.reload();
+                                    }).
+                                    error(function(response){
+                                       console.log(response);
+                                       alert('Incomplete Form');
+                                    });
+                                 }
+                    }]);
             </script>
         </div>
     </body>

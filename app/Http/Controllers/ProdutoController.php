@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Produto;
+use Illuminate\Http\Response;
 
 class ProdutoController extends Controller
 {
@@ -24,7 +25,14 @@ class ProdutoController extends Controller
      */
     public function index()
     {
+        $produtos = Produto::all();
         return view('produto.index');
+    }
+
+    public function all()
+    {
+        $produtos = Produto::all();
+        return response()->json($produtos);
     }
 
     public function create()
