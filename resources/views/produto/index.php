@@ -48,7 +48,6 @@
                 }]);
 
                     app.controller('ProdutoController', ['$scope', '$http', function ($scope, $http) {
-
                         $scope.produto = {};
                         $scope.getProdutos = function(){
                             $http.get('produto/all').
@@ -59,11 +58,13 @@
 
                         $scope.getProdutos();
                         console.log($scope.produto);
+                        console.log($);
+                        console.log($.param($scope.produto));
                         $scope.save = function() {
                                     $http({
                                        method  : 'POST',
-                                       url     : 'produto/store',
-                                       data    : $scope.produto,  // pass in data as strings
+                                       url     : 'produto',
+                                       data    : $.param($scope.produto) ,  // pass in data as strings
                                        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
                                     }).
                                     success(function(response){

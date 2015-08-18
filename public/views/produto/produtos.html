@@ -4,19 +4,20 @@
         <legend>Produtos</legend>
         <div class="form-group">
             <label>Nome:</label>
-            <input class="form-control" type="text" name="nome" value="{{produto.nome}}">
+            <input class="form-control" type="text" name="nome" value="{{produto.nome}}" ng-model="produto.nome">
         </div>
         <div class="form-group">
             <label>Descrição:</label>
-            <input class="form-control" type="text" name="descricao" value="{{produto.descricao}}">
+            <input class="form-control" type="text" name="descricao" value="{{produto.descricao}}" ng-model="produto.descricao">
         </div>
         <div class="form-group">
             <label>Valor:</label>
-            <input class="form-control" type="text" name="valor" value="{{produto.valor}}">
+            <input class="form-control" type="text" name="valor" value="{{produto.valor}}" ng-model="produto.valor">
         </div>
         <button class="btn btn-success" ng-click="save()">Salvar</button>
     </fieldset>
 </form>
+{{produto}}
 <hr>
 <table class="table">
     <caption>Lista de produtos</caption>
@@ -37,3 +38,4 @@
         <tr>
     </tbody>
 </table>
+</div>
