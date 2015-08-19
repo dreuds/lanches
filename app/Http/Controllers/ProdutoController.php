@@ -61,9 +61,15 @@ class ProdutoController extends Controller
         return 'edit';
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
-        return 'update';
+        $produto    = Produto::find($id);
+
+        $produto->nome = $request->input('nome');
+        $produto->descricao = $request->input('descricao');
+        $produto->valor = $request->input('valor');
+
+        $produto->save();
     }
 
     public function delete()
@@ -71,8 +77,9 @@ class ProdutoController extends Controller
         return 'delete';
     }
 
-    public function destroy()
+    public function destroy(Request $request, $id)
     {
-        return 'destroy';
+        $produto = Produto::find($id);
+        $produto->delete();
     }
 }

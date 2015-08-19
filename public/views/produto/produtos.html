@@ -14,10 +14,9 @@
             <label>Valor:</label>
             <input class="form-control" type="text" name="valor" value="{{produto.valor}}" ng-model="produto.valor">
         </div>
-        <button class="btn btn-success" ng-click="save()">Salvar</button>
+        <button class="btn btn-success" ng-click="save()" ng-model="btnSalvar" value="{{btnSalvar}}">Salvar</button>
     </fieldset>
 </form>
-{{produto}}
 <hr>
 <table class="table">
     <caption>Lista de produtos</caption>
@@ -34,7 +33,10 @@
             <td>{{produto.nome}}</td>
             <td>{{produto.descricao}}</td>
             <td>{{produto.valor}}</td>
-            <td><button class="btn btn-primary"><i class="fa fa-pencil"></i></button> <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></td>
+            <td>
+                <button class="btn btn-primary" ng-click="editar($index)"><i class="fa fa-pencil"></i></button> 
+                <button class="btn btn-danger" ng-click="delete(produto.id)"><i class="fa fa-trash-o"></i></button>
+            </td>
         <tr>
     </tbody>
 </table>
