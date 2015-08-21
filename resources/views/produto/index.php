@@ -9,6 +9,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+        <script>var app = angular.module('meulanche',['ngRoute']);</script>
+        <script src="/controllers/js/routes.js"></script>
+        <script src="/controllers/js/produto.js"></script>
+        <script src="/controllers/js/cliente.js"></script>
+        <script src="/controllers/js/pedido.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body ng-app="meulanche">
@@ -37,66 +42,7 @@
               </div><!-- /.container-fluid -->
             </nav>
             <div ng-view></div>
-            <script>
-                var app = angular.module('meulanche',['ngRoute']);
-                    app.config(['$routeProvider', function ($routeProvider){
-                        $routeProvider
-                        .when('/pedidos', {templateUrl: 'views/produto/pedidos.html'})
-                        .when('/clientes', {templateUrl: 'views/produto/clientes.html'})
-                        .when('/produtos', {templateUrl: 'views/produto/produtos.html'})
-                        .otherwise({redirectTo: '/'});
-                }]);
 
-                    app.controller('ProdutoController', ['$scope', '$http', function ($scope, $http) {
-                        $scope.produto = {};
-                        $scope.btnSalvar = 'save';
-                        $scope.getProdutos = function(){
-                            $http.get('produto/all').
-                                success(function(data, status, headers, config) {
-                                    $scope.produtos = data;
-                                });
-                        };
-
-                        $scope.getProdutos();
-                        console.log($scope.produto);
-                        console.log($);
-                        console.log($.param($scope.produto));
-                        $scope.save = function() {
-                                    $http({
-                                       method  : $scope.btnSalvar == 'save' ? 'POST' : 'PATCH',
-                                       url     : $scope.btnSalvar == 'save' ? 'produto' : 'produto/'+ $scope.produto.id,
-                                       data    : jQuery.param($scope.produto) ,  // pass in data as strings
-                                       headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
-                                    }).
-                                    success(function(response){
-                                        console.log(response);
-                                        $scope.produto = {};
-                                        location.reload();
-                                    }).
-                                    error(function(response){
-                                       console.log(response);
-                                       alert('Incomplete Form');
-                                    });
-                                 }
-
-                        $scope.editar = function(id) {
-                                    $scope.produto = $scope.produtos[id];
-                                    $scope.btnSalvar = 'edit';
-                                 }
-
-                        $scope.delete = function(id) {
-                                       $http
-                                            .delete('produto/'+id)
-                                            .success(function(data){
-                                              location.reload();
-                                            })
-                                            .error(function(data) {
-                                              console.log(data);
-                                              alert('Unable to delete');
-                                           });
-                                }
-                    }]);
-            </script>
         </div>
     </body>
 </html>
